@@ -1,0 +1,30 @@
+﻿@model List<DogModel>
+
+@if(Model == null || !Model.Any())
+{
+	<h1>Could not find dogs!</h1>
+}
+else
+{
+	<h1>Our dogs!</h1>
+
+	@foreach(DogModel dog in Model)
+	{
+		<div class="dog-item">
+			<a asp-route-id="@dog.Id" asp-controller="Dogs" asp-action="Details"><h2>@dog.Name</h2></a>
+			<label>Favorite food: </label>
+			<span>@dog.FavFood</span>
+
+			@if (dog.IsAdopted)
+			{
+				<h3>This dog found a happy home!</h3>
+			}
+			else
+			{
+				<br />
+				<a class="btn btn-primary" asp-route-id="@dog.Id" asp-controller="Dogs" asp-action="Adopt">Adopt dog!</a>
+			}
+			<hr/>
+		</div>
+	}
+}
